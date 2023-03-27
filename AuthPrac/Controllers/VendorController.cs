@@ -6,14 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthPrac.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : Controller
+    public class VendorController : Controller
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
 
-        public ProductController(IProductRepository productRepository, IMapper mapper)
+        public VendorController(IProductRepository productRepository, IMapper mapper)
         {
             _productRepository = productRepository;
             _mapper = mapper;
@@ -25,9 +26,9 @@ namespace AuthPrac.Controllers
         {
             var products = _mapper.Map<List<ProductDto>>(_productRepository.GetProducts());
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            
+
             return Ok(products);
         }
 
@@ -43,11 +44,36 @@ namespace AuthPrac.Controllers
 
             var product = _mapper.Map<ProductDto>(_productRepository.GetProduct(prodId));
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             return Ok(product);
         }
 
+
+        [HttpDelete("{prodId}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteProduct(int prodId)
+        {
+            if (!_productRepository.ProductExist(prodId))
+            {
+                return NotFound();
+            }
+
+            var productToDelete = _productRepository.GetProduct(prodId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+
+            if (!_productRepository.DeleteProduct(productToDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting product");
+            }
+
+            return NoContent();
+        }
 
 
     }
