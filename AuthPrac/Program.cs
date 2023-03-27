@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
+using System.Reflection;
 using System.Text;
 
 namespace AuthPrac
@@ -20,6 +21,8 @@ namespace AuthPrac
 
             // Add services to the container.
             builder.Services.AddControllers();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 

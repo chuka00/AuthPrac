@@ -1,8 +1,9 @@
 ﻿using AuthPrac.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthPrac.Interfaces
 {
-    public interface IProductRepository
+    public interface IVendorRepository
     {
         bool DeleteProduct(Product product);
 

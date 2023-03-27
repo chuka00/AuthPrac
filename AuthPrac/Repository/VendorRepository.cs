@@ -1,14 +1,15 @@
 ﻿using AuthPrac.Data;
 using AuthPrac.Entities;
 using AuthPrac.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthPrac.Repository
 {
-    public class ProductRepository : IProductRepository
+    public class VendorRepository : IVendorRepository
     {
         private readonly AppDbContext _appDbContext;
 
-        public ProductRepository(AppDbContext appDbContext)
+        public VendorRepository(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
