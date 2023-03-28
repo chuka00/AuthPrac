@@ -1,4 +1,5 @@
-﻿using AuthPrac.Dto;
+﻿using AuthPrac.Data;
+using AuthPrac.Dto;
 using AuthPrac.Entities;
 using AuthPrac.Interfaces;
 using AutoMapper;
@@ -12,11 +13,13 @@ namespace AuthPrac.Controllers
     {
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
+        private readonly AppDbContext _appDbContext;
 
-        public ProductController(IProductRepository productRepository, IMapper mapper)
+        public ProductController(IProductRepository productRepository, IMapper mapper, AppDbContext appDbContext)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _appDbContext = appDbContext;
         }
 
         [HttpGet]
@@ -30,6 +33,19 @@ namespace AuthPrac.Controllers
             
             return Ok(products);
         }
+        [HttpPost]
+        public IActionResult CreateProduct(ProductDto product)
+        {
+          var response =  _productRepository.CreateProduct(product);
+
+            if (response.Result == "Success")
+            {
+                return Created("Get", product.ProductId);
+                 
+            }
+            return Ok("Could not create product!");
+        }
+
 
 
 

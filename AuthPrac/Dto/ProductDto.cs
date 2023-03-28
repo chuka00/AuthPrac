@@ -1,4 +1,6 @@
-﻿namespace AuthPrac.Dto
+﻿using AuthPrac.Entities;
+
+namespace AuthPrac.Dto
 {
     public class ProductDto
     {
@@ -7,5 +9,7 @@
         public string Description { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
+        public int VendorId { get; set; }
+        public Vendor Vendor { get; set; }
     }
 }

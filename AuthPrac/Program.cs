@@ -24,6 +24,8 @@ namespace AuthPrac
             builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddAutoMapper(Assembly.Load("AuthPrac"));
 
 
             builder.Services.AddDbContext<AppDbContext>(options =>

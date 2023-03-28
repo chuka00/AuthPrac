@@ -8,8 +8,10 @@ namespace AuthPrac.MappingProfile
     {
         public MappingProfiles()
         {
+            CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>();
             CreateMap<Customer, CustomerDto>();
+            CreateMap<ProductDto, Product>();
         }
     }
 }

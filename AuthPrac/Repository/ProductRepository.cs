@@ -1,17 +1,42 @@
 ﻿using AuthPrac.Data;
+using AuthPrac.Dto;
 using AuthPrac.Entities;
 using AuthPrac.Interfaces;
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AuthPrac.Repository
 {
     public class ProductRepository : IProductRepository
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IMapper _mapper;
 
-        public ProductRepository(AppDbContext appDbContext)
+        public ProductRepository(AppDbContext appDbContext, IMapper mapper)
         {
             _appDbContext = appDbContext;
+            _mapper = mapper;
         }
+
+        public async Task<string> CreateProduct(ProductDto product)
+        {
+            Product newProduct = new Product { ProductName = product.ProductName, Price = product.Price, Description = product.Description, Quantity = product.Quantity, Vendor = product.Vendor, VendorId = product.VendorId };
+
+            var newProductResult = _appDbContext.Products.AddAsync(newProduct);
+            _appDbContext.SaveChanges();
+
+            if (newProductResult.IsCompletedSuccessfully)
+            {
+                return "Success";
+            }
+
+            return "Error";
+           
+        }
+
+
+
+
 
         public bool DeleteProduct(Product product)
         {

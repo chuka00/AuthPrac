@@ -1,9 +1,11 @@
-﻿using AuthPrac.Entities;
+﻿using AuthPrac.Dto;
+using AuthPrac.Entities;
 
 namespace AuthPrac.Interfaces
 {
     public interface IProductRepository
     {
+        Task<string>  CreateProduct(ProductDto product);
         bool DeleteProduct(Product product);
 
         ICollection<Product> GetProducts();

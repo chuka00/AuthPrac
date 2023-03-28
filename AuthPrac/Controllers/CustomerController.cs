@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthPrac.Controllers
 {
+    /*[Route("api/[controller]")]
+    [ApiController]*/
     public class CustomerController : Controller
     {
         
@@ -33,7 +35,7 @@ namespace AuthPrac.Controllers
 
 
         [HttpGet("{custId}")]
-        [ProducesResponseType(200, Type = typeof(Product))]
+        [ProducesResponseType(200, Type = typeof(Customer))]
         [ProducesResponseType(400)]
         public IActionResult GetCustomer(int custId)
         {
@@ -47,9 +49,9 @@ namespace AuthPrac.Controllers
             return Ok(customer);
         }
          
-        public IActionResult Index()
+        /*public IActionResult Index()
         {
             return View();
-        }
+        }*/
     }
 }
