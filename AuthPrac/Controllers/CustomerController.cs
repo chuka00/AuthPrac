@@ -11,8 +11,10 @@ namespace AuthPrac.Controllers
     public class CustomerController : Controller
     {
         
-         private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly IMapper _mapper;
+
+
 
         public CustomerController(ICustomerRepository customerRepository, IMapper mapper)
         {

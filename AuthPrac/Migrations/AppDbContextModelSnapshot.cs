@@ -31,7 +31,6 @@ namespace AuthPrac.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -60,7 +59,6 @@ namespace AuthPrac.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"), 1L, 1);
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -68,13 +66,12 @@ namespace AuthPrac.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int>("VendorId")
+                    b.Property<int?>("VendorId")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
@@ -99,7 +96,6 @@ namespace AuthPrac.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ReviewText")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VendorId")
@@ -122,13 +118,13 @@ namespace AuthPrac.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SaleId"), 1L, 1);
 
-                    b.Property<int>("CustomerId")
+                    b.Property<int?>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ItemId")
+                    b.Property<int?>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductsProductId")
+                    b.Property<int?>("ProductsProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -155,7 +151,6 @@ namespace AuthPrac.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VendorId"), 1L, 1);
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -167,7 +162,6 @@ namespace AuthPrac.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("VendorId");
@@ -177,13 +171,9 @@ namespace AuthPrac.Migrations
 
             modelBuilder.Entity("AuthPrac.Entities.Product", b =>
                 {
-                    b.HasOne("AuthPrac.Entities.Vendor", "Vendor")
+                    b.HasOne("AuthPrac.Entities.Vendor", null)
                         .WithMany("Products")
-                        .HasForeignKey("VendorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vendor");
+                        .HasForeignKey("VendorId");
                 });
 
             modelBuilder.Entity("AuthPrac.Entities.Review", b =>
@@ -209,15 +199,11 @@ namespace AuthPrac.Migrations
                 {
                     b.HasOne("AuthPrac.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CustomerId");
 
                     b.HasOne("AuthPrac.Entities.Product", "Products")
                         .WithMany()
-                        .HasForeignKey("ProductsProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductsProductId");
 
                     b.Navigation("Customer");
 

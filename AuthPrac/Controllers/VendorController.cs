@@ -3,6 +3,7 @@ using AuthPrac.Entities;
 using AuthPrac.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace AuthPrac.Controllers
 {
@@ -11,16 +12,29 @@ namespace AuthPrac.Controllers
     [ApiController]
     public class VendorController : Controller
     {
+        private readonly IVendorServices _vendorServices;
         private readonly IProductRepository _productRepository;
         private readonly IMapper _mapper;
+        
 
-        public VendorController(IProductRepository productRepository, IMapper mapper)
+        public VendorController(IProductRepository productRepository, IMapper mapper, IVendorServices vendorServices)
         {
             _productRepository = productRepository;
             _mapper = mapper;
+            _vendorServices = vendorServices;
         }
 
+
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(ICollection<Product>))]
+        public IActionResult GetAllProducts()
+        {
+            var allProducts = _vendorServices.GetAllProducts();
+            return Ok(allProducts);
+        }
+
+
+       /* [HttpGet]
         [ProducesResponseType(200, Type = typeof(ICollection<Product>))]
         public IActionResult GetProducts()
         {
@@ -30,7 +44,7 @@ namespace AuthPrac.Controllers
                 return BadRequest(ModelState);
 
             return Ok(products);
-        }
+        }*/
 
 
 

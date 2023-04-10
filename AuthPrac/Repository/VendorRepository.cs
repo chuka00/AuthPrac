@@ -23,6 +23,7 @@ namespace AuthPrac.Repository
         public Product GetProduct(int id)
         {
             return _appDbContext.Products.Where(p => p.ProductId == id).FirstOrDefault();
+            //return _appDbContext.Vendors.Where
         }
 
         public Product GetProduct(string name)

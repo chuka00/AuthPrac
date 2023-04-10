@@ -4,6 +4,7 @@ using AuthPrac.Entities;
 using AuthPrac.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace AuthPrac.Controllers
 {
@@ -22,8 +23,24 @@ namespace AuthPrac.Controllers
             _appDbContext = appDbContext;
         }
 
+        /*/// <summary>
+/// Gets the list of all companies
+/// </summary>
+/// <returns>The companies list</returns>
+[HttpGet(Name = "GetCompanies")]
+*/
+
+        /// <summary>
+        /// Gets lists of all the products
+        /// </summary>
+        /// <returns>The product lists</returns>
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(ICollection<Product>))]
+        //[ProducesResponseType(200, Type = typeof(ICollection<Product>))]
+        [Route("products")]
+        [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [SwaggerOperation]
+        [Produces("application/json")]
         public IActionResult GetProducts()
         {
             var products = _mapper.Map<List<ProductDto>>(_productRepository.GetProducts());
@@ -33,6 +50,11 @@ namespace AuthPrac.Controllers
             
             return Ok(products);
         }
+
+        /// <summary>
+        /// Creates a new product
+        /// </summary>
+        /// <returns>A new product</returns>
         [HttpPost]
         public IActionResult CreateProduct(ProductDto product)
         {
@@ -48,7 +70,10 @@ namespace AuthPrac.Controllers
 
 
 
-
+        /// <summary>
+        /// Gets the product by Id
+        /// </summary>
+        /// <returns>The product lists</returns>
         [HttpGet("{prodId}")]
         [ProducesResponseType(200, Type = typeof(Product))]
         [ProducesResponseType(400)]

@@ -4,7 +4,7 @@
 
 namespace AuthPrac.Migrations
 {
-    public partial class SeedData : Migration
+    public partial class linkVendor : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -18,9 +18,11 @@ namespace AuthPrac.Repository
             _mapper = mapper;
         }
 
+       
+
         public async Task<string> CreateProduct(ProductDto product)
         {
-            Product newProduct = new Product { ProductName = product.ProductName, Price = product.Price, Description = product.Description, Quantity = product.Quantity, Vendor = product.Vendor, VendorId = product.VendorId };
+            Product newProduct = new Product { ProductName = product.ProductName, Price = product.Price, Description = product.Description, Quantity = product.Quantity, VendorId = product.VendorId };
 
             var newProductResult = _appDbContext.Products.AddAsync(newProduct);
             _appDbContext.SaveChanges();
@@ -31,10 +33,8 @@ namespace AuthPrac.Repository
             }
 
             return "Error";
-           
+
         }
-
-
 
 
 
